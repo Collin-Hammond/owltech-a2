@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-// Helper: convert uint32_t to 32-bit binary string
+//convert uint32_t to 32-bit binary string
 void to_32bit_binary(uint32_t value, char *out) {
     for (int i = 31; i >= 0; i--) {
         out[31 - i] = ((value >> i) & 1) ? '1' : '0';
@@ -12,7 +12,7 @@ void to_32bit_binary(uint32_t value, char *out) {
     out[32] = '\0';
 }
 
-// ---------- PART 1: Direct Mapping ----------
+//PART 1: Direct Mapping
 
 void oct_to_bin(const char *oct, char *out) {
     int pos = 0;
@@ -30,14 +30,14 @@ void oct_to_hex(const char *oct, char *out) {
     char bin[256];
     oct_to_bin(oct, bin);
 
-    // pad binary to multiple of 4
+    //pad binary to multiple of 4
     int len = strlen(bin);
     int pad = (4 - (len % 4)) % 4;
     char padded[260];
     for (int i = 0; i < pad; i++) padded[i] = '0';
     strcpy(padded + pad, bin);
 
-    // convert 4 bits → hex
+    //convert 4 bits -> hex
     int pos = 0;
     for (int i = 0; i < strlen(padded); i += 4) {
         int val = (padded[i] - '0') * 8 +
@@ -48,7 +48,7 @@ void oct_to_hex(const char *oct, char *out) {
     }
     out[pos] = '\0';
 
-    // --- trim leading zeros, but keep at least one digit ---
+    //trim leading zeros, but keep at least one digit 
     int start = 0;
     while (out[start] == '0' && out[start + 1] != '\0') {
         start++;
@@ -77,7 +77,7 @@ void hex_to_bin(const char *hex, char *out) {
     out[pos] = '\0';
 }
 
-// ---------- PART 2: Signed Representations ----------
+//PART 2: Signed Representations
 
 void to_sign_magnitude(int32_t n, char *out) {
     if (n >= 0) {
